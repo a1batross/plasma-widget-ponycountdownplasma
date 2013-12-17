@@ -1,0 +1,8 @@
+[Global]
+IconName=plasma
+Comment=ponycountdown
+
+[Event/ponyOnLine]
+Name=Ponies is here!
+Comment=New episode of MLP:FiM is started.
+Action=Popup

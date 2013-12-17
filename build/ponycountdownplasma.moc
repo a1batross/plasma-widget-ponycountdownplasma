@@ -1,0 +1,97 @@
+/****************************************************************************
+** Meta object code from reading C++ file 'ponycountdownplasma.h'
+**
+** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.5)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#include "../ponycountdownplasma.h"
+#if !defined(Q_MOC_OUTPUT_REVISION)
+#error "The header file 'ponycountdownplasma.h' doesn't include <QObject>."
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.5. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+QT_BEGIN_MOC_NAMESPACE
+static const uint qt_meta_data_ponycountdownplasma[] = {
+
+ // content:
+       6,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       2,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+ // slots: signature, parameters, type, tag, flags
+      21,   20,   20,   20, 0x08,
+      29,   20,   20,   20, 0x08,
+
+       0        // eod
+};
+
+static const char qt_meta_stringdata_ponycountdownplasma[] = {
+    "ponycountdownplasma\0\0parse()\0interval_to()\0"
+};
+
+void ponycountdownplasma::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        ponycountdownplasma *_t = static_cast<ponycountdownplasma *>(_o);
+        switch (_id) {
+        case 0: _t->parse(); break;
+        case 1: _t->interval_to(); break;
+        default: ;
+        }
+    }
+    Q_UNUSED(_a);
+}
+
+const QMetaObjectExtraData ponycountdownplasma::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
+const QMetaObject ponycountdownplasma::staticMetaObject = {
+    { &Plasma::Applet::staticMetaObject, qt_meta_stringdata_ponycountdownplasma,
+      qt_meta_data_ponycountdownplasma, &staticMetaObjectExtraData }
+};
+
+#ifdef Q_NO_DATA_RELOCATION
+const QMetaObject &ponycountdownplasma::getStaticMetaObject() { return staticMetaObject; }
+#endif //Q_NO_DATA_RELOCATION
+
+const QMetaObject *ponycountdownplasma::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+}
+
+void *ponycountdownplasma::qt_metacast(const char *_clname)
+{
+    if (!_clname) return 0;
+    if (!strcmp(_clname, qt_meta_stringdata_ponycountdownplasma))
+        return static_cast<void*>(const_cast< ponycountdownplasma*>(this));
+    typedef Plasma::Applet QMocSuperClass;
+    return QMocSuperClass::qt_metacast(_clname);
+}
+
+int ponycountdownplasma::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    typedef Plasma::Applet QMocSuperClass;
+    _id = QMocSuperClass::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    }
+    return _id;
+}
+QT_END_MOC_NAMESPACE

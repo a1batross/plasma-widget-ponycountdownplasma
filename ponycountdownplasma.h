@@ -25,8 +25,26 @@
 // We need the Plasma Applet headers
 #include <Plasma/Applet>
 #include <Plasma/Svg>
+#include <Plasma/Label>
+
+//Download File
+#include <QUrl>
+#include "filedownloader.h"
+
+//QJson
+#include <qjson/parser.h>
+#include <QVariant>
+#include <QLCDNumber>
+#include <QTimer>
+#include <KTimeZone>
+#include <qtimespan.h>
+
 
 class QSizeF;
+
+namespace Plasma {
+    class Label;
+}
 
 // Define our plasma Applet
 class ponycountdownplasma : public Plasma::Applet
@@ -36,16 +54,37 @@ class ponycountdownplasma : public Plasma::Applet
         // Basic Create/Destroy
         ponycountdownplasma(QObject *parent, const QVariantList &args);
         ~ponycountdownplasma();
+	
 
-        // The paintInterface procedure paints the applet to the desktop
-        void paintInterface(QPainter *painter,
-                const QStyleOptionGraphicsItem *option,
-                const QRect& contentsRect);
         void init();
+	void show();
+	void timershow();
+	
+    //signals:
+	//void ep_here();
+	
+    private slots:
+	void parse();
+	//void ep_here_notify();
+	void interval_to();
 
     private:
         Plasma::Svg m_svg;
-        KIcon m_icon;
+	QString m_json;
+	QTimer m_cd;
+	fileDownloader m_dl;
+	QFont m_font;
+	
+	//Premiere information
+	QVariantMap m_info;
+	QDateTime m_datetime;
+	QTimeSpan m_tonewep;
+	Plasma::Label *m_label_ep;
+	Plasma::Label *m_label_name;
+	Plasma::Label *m_label_season;
+	Plasma::Label *m_label_timeto;
+	KTimeZone m_tz;
+	
 };
  
 // This is the command that links your applet to the .desktop file
