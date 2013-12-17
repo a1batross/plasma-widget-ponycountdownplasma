@@ -1,0 +1,5 @@
+*,o
+*.so
+*.moc
+Makefile
+build/*
