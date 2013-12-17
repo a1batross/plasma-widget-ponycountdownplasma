@@ -1,0 +1,8 @@
+Compile:
+
+mkdir -p build/
+cd build/ && cmake ../
+make
+
+#Packages will be available, but later. :(
+sudo make install 
