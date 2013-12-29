@@ -1,46 +1,41 @@
-/***************************************************************************
- *   Copyright (C) %{CURRENT_YEAR} by %{AUTHOR} <%{EMAIL}>                            *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
- ***************************************************************************/
+/*
+ *         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ *                     Version 2, December 2004
+ *
+ *  Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+ *
+ *  Everyone is permitted to copy and distribute verbatim or modified
+ *  copies of this license document, and changing it is allowed as long
+ *  as the name is changed.
+ *
+ *             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ *    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+ *
+ *   0. You just DO WHAT THE FUCK YOU WANT TO.
+ */
 
 // Here we avoid loading the header multiple times
 #ifndef PONYCOUNTDOWNPLASMA_HEADER
 #define PONYCOUNTDOWNPLASMA_HEADER
 
-#include <KIcon>
+//#include <KIcon>
 // We need the Plasma Applet headers
 #include <Plasma/Applet>
 #include <Plasma/Svg>
 #include <Plasma/Label>
+#include <QGraphicsGridLayout>
 
 //Download File
-#include <QUrl>
 #include "filedownloader.h"
 
 //QJson
 #include <qjson/parser.h>
 #include <QVariant>
-#include <QLCDNumber>
+
 #include <QTimer>
-#include <KTimeZone>
-#include <qtimespan.h>
+#include <qtimespan.h>		//Is not my class ^^
+				//See https://gitorious.org/qtimespandevel
 
-
-class QSizeF;
 
 namespace Plasma {
     class Label;
@@ -50,41 +45,55 @@ namespace Plasma {
 class ponycountdownplasma : public Plasma::Applet
 {
     Q_OBJECT
+    
+
+    
     public:
         // Basic Create/Destroy
         ponycountdownplasma(QObject *parent, const QVariantList &args);
         ~ponycountdownplasma();
 	
-
-        void init();
-	void show();
-	void timershow();
+	void init(); //Here calls download();
+	void download();		//download() downloading file and calls SLOT parse(); 
+	void update();			//show() is calling after prepare(). This function is important,
+					//because here declares main layout
+ 
+	void show_firstrow();		//see README for help about this three
+	void show_secondrow();		//little functions
+	void show_thirdrow();
 	
-    //signals:
-	//void ep_here();
+	void timerstart();		//this func is important too! Here starts countdown to new episode :)
 	
-    private slots:
-	void parse();
-	//void ep_here_notify();
+	inline QString timePart(Qt::TimeSpanUnit unit, Qt::TimeSpanFormat format = Qt::DaysAndTime) { return QString::number(m_tonewep.part(unit, format)); }; 
+	inline QString info(const char * request) { return m_info[request].toString(); }
+	
+    protected slots:
+	void prepare();
 	void interval_to();
-
+	
+    signals:
+	void ep_here();
+	
     private:
-        Plasma::Svg m_svg;
-	QString m_json;
-	QTimer m_cd;
-	fileDownloader m_dl;
-	QFont m_font;
+	// ---------DOWNLOADING DATA-----------
+	fileDownloader m_dl;		// Class for downloading files from http. 
+					// See filedownloader.h
+	QVariantMap m_info; 		// Here goes parsed JSON data
 	
-	//Premiere information
-	QVariantMap m_info;
-	QDateTime m_datetime;
-	QTimeSpan m_tonewep;
-	Plasma::Label *m_label_ep;
-	Plasma::Label *m_label_name;
-	Plasma::Label *m_label_season;
-	Plasma::Label *m_label_timeto;
-	KTimeZone m_tz;
+	// -------TIMEY-WIMEY... STUFF---------
 	
+	QDateTime m_datetime;		// Episode Date & Time
+	QTimer m_cd;			// A timer for m_tonewep
+	QTimeSpan m_tonewep;		// Estimated Date & Time
+	
+	// -----------PLASMA THINGS------------
+	Plasma::Svg m_svg;
+	QGraphicsGridLayout *layout;
+	QFont m_font;			//A Font settings
+	Plasma::Label *m_label_ep, *m_label_name, *m_label_season, //third row
+		      // Need more Plasma::Label! 
+		      *m_label_day_est, *m_label_hour_est, *m_label_min_est, *m_label_sec_est; // first row
+
 };
  
 // This is the command that links your applet to the .desktop file

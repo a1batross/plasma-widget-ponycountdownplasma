@@ -11,11 +11,14 @@ include_directories(
    ${KDE4_INCLUDES}
    )
  
-set(ponycountdownplasma_SRCS qtimespan.cpp
+set(ponycountdownplasma_SRCS qdbusnotification.cpp 
+			     qtimespan.cpp
 			     filedownloader.cpp 
 			     ponycountdownplasma.cpp)
- 
+			     
+
 kde4_add_plugin(plasma_applet_ponycountdownplasma ${ponycountdownplasma_SRCS})
+
 target_link_libraries(plasma_applet_ponycountdownplasma 
 		      ${QT_QTNETWORK_LIBRARY}
                       ${KDE4_PLASMA_LIBS} 
@@ -24,6 +27,10 @@ target_link_libraries(plasma_applet_ponycountdownplasma
  
 install(TARGETS plasma_applet_ponycountdownplasma
         DESTINATION ${PLUGIN_INSTALL_DIR})
- 
-install(FILES plasma-applet-ponycountdownplasma.desktop
+
+install(FILES plasma_applet_ponycountdownplasma.desktop
         DESTINATION ${SERVICES_INSTALL_DIR})
+
+
+kde4_install_icons(${ICON_INSTALL_DIR})
+kde4_update_iconcache()
